@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>ปัจฉิม</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #0d0d0d;
+  color: #f5f5f5;
+  overflow-x: hidden;
+}
+
+/* ================= BACKGROUND BLOBS ================= */
+#lava {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  transition: opacity 1s ease;
+}
+
+.blob {
+  position: absolute;
+  background: radial-gradient(circle,
+    rgba(255,255,255,0.35),
+    rgba(255,255,255,0.08),
+    transparent 70%);
+  filter: blur(70px);
+  opacity: 0.8;
+}
+
+.blob.a {
+  width: 420px; height: 420px;
+  animation: moveA 32s infinite alternate ease-in-out;
+}
+.blob.b {
+  width: 520px; height: 520px;
+  animation: moveB 40s infinite alternate ease-in-out;
+}
+.blob.c {
+  width: 360px; height: 360px;
+  animation: moveC 28s infinite alternate ease-in-out;
+}
+
+@keyframes moveA {
+  0% { transform: translate(10vw, 10vh); }
+  50% { transform: translate(60vw, 30vh); }
+  100% { transform: translate(20vw, 70vh); }
+}
+@keyframes moveB {
+  0% { transform: translate(70vw, 80vh); }
+  50% { transform: translate(30vw, 40vh); }
+  100% { transform: translate(80vw, 10vh); }
+}
+@keyframes moveC {
+  0% { transform: translate(40vw, 60vh); }
+  50% { transform: translate(10vw, 20vh); }
+  100% { transform: translate(55vw, 75vh); }
+}
+
+/* ================= ART BACKGROUND ================= */
+#art-bg {
+  position: fixed;
+  inset: 0;
+  background-image: url("https://img.artpal.com/988322/9-21-8-11-18-8-34m.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: translateY(80px);
+  transition: opacity 1.6s ease, transform 1.6s ease;
+  z-index: -1;
+}
+
+#art-bg.show {
+  opacity: 0.25;
+  transform: translateY(0);
+}
+
+/* ================= CONTENT ================= */
+header {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+header h1 {
+  font-size: clamp(48px, 8vw, 90px);
+  letter-spacing: 4px;
+}
+
+header p {
+  margin-top: 15px;
+  opacity: 0.6;
+}
+
+section {
+  max-width: 1000px;
+  margin: auto;
+  padding: 120px 20px;
+  text-align: center;
+}
+
+.fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1s ease;
+}
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================= BOTTOM FACT ================= */
+.fact-box {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 28px 26px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 0 40px rgba(255,255,255,0.12);
+  cursor: pointer;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.fact-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 60px rgba(255,255,255,0.18);
+}
+
+.fact-label {
+  letter-spacing: 3px;
+  font-size: 14px;
+  opacity: 0.6;
+  margin-bottom: 14px;
+}
+
+.fact-content {
+  min-height: 60px;
+  font-size: 15px;
+  line-height: 1.7;
+  opacity: 0;
+  animation: factIn 0.7s forwards;
+}
+
+@keyframes factIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+footer {
+  padding: 80px 20px;
+  text-align: center;
+  opacity: 0.4;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Lava Background -->
+<div id="lava">
+  <div class="blob a"></div>
+  <div class="blob b"></div>
+  <div class="blob c"></div>
+</div>
+
+<!-- Art Background -->
+<div id="art-bg"></div>
+
+<header>
+  <div class="fade show">
+    <h1>ปัจฉิม</h1>
+    <p>เวลาผ่านไปโครตเร็ว</p>
+  </div>
+</header>
+
+<section>
+  <div class="fade">
+    <h2>สำหรับพี่ว่าน</h2>
+    <p>
+      ไม่ต้องวาดให้สวยก็ได้ขอแค่พี่ว่านเป็นตัวของตนเองก็พอ<br>
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="fade">
+    <h2>สิ่งที่อยากบอก</h2>
+    <p>
+      ดีนะทีเกิดมาพร้อม "passive sister guard" ถ้าได้พี่คนอื่นนะน่าจะไม่ดี เอาคนนี้แหละ ดีสุดอะไรก็ช่วย ทำไรไม่ได้ก็ ให้คำแนะนำ ถึงจะ ดุจะด่า แต่ก็ยอมแลก<br>
+    </p>
+  </div>
+</section>
+
+<!-- BOTTOM FACT -->
+<section>
+  <div class="fade">
+    <div class="fact-box" id="bottomFact">
+      <div class="fact-label">FACT</div>
+      <div class="fact-content" id="factContent">
+        กดเพื่ออ่าน
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="fade">
+  ts was code by w1201s
+  | Project venus html | i hate javascript,html,C+++ lol
+</footer>
+
+<script>
+/* fade in text */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll(".fade").forEach(el => observer.observe(el));
+
+/* scroll logic */
+const lava = document.getElementById("lava");
+const artBg = document.getElementById("art-bg");
+
+window.addEventListener("scroll", () => {
+  const y = window.scrollY;
+  if (y > window.innerHeight * 0.6) {
+    lava.style.opacity = 0;
+    artBg.classList.add("show");
+  } else {
+    lava.style.opacity = 1;
+    artBg.classList.remove("show");
+  }
+});
+
+/* ===== BOTTOM FACT + REDIRECT ===== */
+const factTexts = [
+  "เกิดวันที่ 14 September(กดต่อ)",
+  "มีพี่ดีขนาดนี้(กดต่อ)",
+  "อิจฉาอะดิ(กดต่อ)",
+  "Remember if u sad, You no weak. You strong. Me is believe in you. (Best grammar right )(กดต่อ)",
+  "เด่วพาไปเว็ปอื่น(กดต่อ)"
+];
+
+let factIndex = 0;
+const factBox = document.getElementById("bottomFact");
+const factContent = document.getElementById("factContent");
+
+factBox.addEventListener("click", () => {
+
+  /* หลังจากข้อความสุดท้าย → เด้งเว็บ */
+  if (factIndex >= factTexts.length) {
+    document.body.style.filter = "blur(4px)";
+    setTimeout(() => {
+      window.location.href = "https://w1201s.github.io/Memory/";
+    }, 500);
+    return;
+  }
+
+  factContent.style.animation = "none";
+  void factContent.offsetWidth;
+  factContent.textContent = factTexts[factIndex];
+  factContent.style.animation = "factIn 0.7s forwards";
+
+  factIndex++;
+});
+</script>
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading</title>
+
+<style>
+/* FORCE ALL TEXT WHITE */
+* {
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0d0d0d;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* LOADING SCREEN */
+#loading {
+  position: fixed;
+  inset: 0;
+  background: #0d0d0d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 1.2s ease;
+}
+
+#loading.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* MAIN TEXT */
+#scramble {
+  font-size: clamp(48px, 8vw, 90px);
+  letter-spacing: 6px;
+  font-weight: 600;
+}
+
+/* BOUNCE ANIMATION */
+@keyframes bounce {
+  0%   { transform: translateY(0); }
+  20%  { transform: translateY(-35px); }
+  40%  { transform: translateY(0); }
+  60%  { transform: translateY(-18px); }
+  80%  { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+
+#scramble.bounce {
+  animation: bounce 0.9s ease;
+}
+
+/* % TEXT */
+#percent {
+  margin-top: 18px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  opacity: 0.6;
+}
+
+/* LOADING BAR */
+#bar {
+  width: 220px;
+  height: 4px;
+  margin-top: 12px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+#bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.4),
+    rgba(255,255,255,0.9)
+  );
+  transition: width 0.1s linear;
+}
+
+/* FOOTER TEXT */
+#credit {
+  position: absolute;
+  bottom: 24px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.35;
+}
+
+#credit span {
+  display: block;
+  margin-top: 4px;
+}
+
+#credit .special {
+  margin-top: 6px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  opacity: 0.25;
+}
+</style>
+</head>
+
+<body>
+
+<div id="loading">
+  <div id="scramble">%&^#@!*</div>
+  <div id="percent">0%</div>
+
+  <div id="bar">
+    <div id="bar-fill"></div>
+  </div>
+
+  <div id="credit">
+    ts was code by w1201s จ้างได้นะคับ พอดี ไม่มีไรทำเลยมา ทำให้พี่สาวที่จะจบ 555555
+    <span>Project venus</span>
+    <span class="special">special edition for sister</span>
+  </div>
+</div>
+
+<script>
+const target = "ปัจฉิม";
+const chars = "%^&*()_+{}|<>?";
+const textEl = document.getElementById("scramble");
+const percentEl = document.getElementById("percent");
+const barFill = document.getElementById("bar-fill");
+
+let frame = 0;
+const maxFrame = 40;
+
+const timer = setInterval(() => {
+  let out = "";
+
+  for (let i = 0; i < target.length; i++) {
+    if (i < frame / 6) {
+      out += target[i];
+    } else {
+      out += chars[Math.floor(Math.random() * chars.length)];
+    }
+  }
+
+  textEl.textContent = out;
+
+  const percent = Math.min(
+    100,
+    Math.floor((frame / maxFrame) * 100)
+  );
+
+  percentEl.textContent = percent + "%";
+  barFill.style.width = percent + "%";
+
+  frame++;
+
+  if (frame > maxFrame) {
+    clearInterval(timer);
+
+    textEl.textContent = target;
+    percentEl.textContent = "100%";
+    barFill.style.width = "100%";
+
+    // ทำให้คำว่า "ปัจฉิม" กระโดด
+    textEl.classList.add("bounce");
+
+    // รอให้เด้งเสร็จแล้วค่อยจางหาย
+    setTimeout(() => {
+      document.getElementById("loading").classList.add("hide");
+    }, 1200);
+  }
+}, 80);
+</script>
+
+</body>
+</html>
+
+
